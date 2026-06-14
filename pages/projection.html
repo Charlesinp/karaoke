@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Karaoke — Proyección</title>
+<link rel="stylesheet" href="../styles/projection.css">
+</head>
+<body>
+
+<!-- Player de YouTube -->
+<div id="player-wrap">
+  <div id="player"></div>
+</div>
+
+<!-- Activar sonido (la primera vez, Chrome bloquea el autoplay con audio) -->
+<button id="unmute-btn" class="unmute-btn" onclick="enableAudio()">🔊 Clic para activar el sonido</button>
+
+<!-- Pantalla de espera -->
+<div id="waiting" class="screen">
+  <div class="w-inner">
+    <div class="mic-anim">🎤</div>
+    <h1>Karaoke Night</h1>
+    <p class="w-sub">Esperando la próxima canción…</p>
+    <div class="bars">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay de puntaje -->
+<div id="score-ov" class="screen hidden">
+  <div class="s-inner">
+    <div class="s-label">PUNTAJE</div>
+    <div id="s-num" class="s-num">0</div>
+    <div id="s-stars" class="s-stars"></div>
+    <div id="s-singer" class="s-singer"></div>
+    <div id="s-title"  class="s-title"></div>
+  </div>
+  <canvas id="fireworks"></canvas>
+</div>
+
+<div class="credit">by Charlie Intriago</div>
+
+<script src="../scripts/projection.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karaoke — Control</title>
+<link rel="stylesheet" href="../styles/control.css">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <span>🎤</span>
+    <h1>Karaoke Control</h1>
+  </div>
+  <div class="header-right">
+    <span id="proj-status" class="proj-status">⚫ Proyección</span>
+    <button id="btn-proj" onclick="openProjection()">📺 Abrir ventana</button>
+  </div>
+</header>
+
+<div class="notice" id="file-notice" style="display:none">
+  ⚠️ Estás abriendo desde <code>file://</code> — YouTube requiere un servidor local.
+  Ejecuta: <code>python -m http.server 8080</code> y abre <code>http://localhost:8080/karaoke</code>
+</div>
+
+<div class="layout">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="col-left">
+
+    <div class="card">
+      <h2>🔍 Buscar en YouTube</h2>
+      <div class="input-group">
+        <input type="text" id="q" placeholder="Canción + artista…" onkeydown="if(event.key==='Enter')doSearch()">
+        <button onclick="doSearch()">Buscar</button>
+      </div>
+      <div id="search-msg" class="search-msg"></div>
+      <div id="results" class="results"></div>
+    </div>
+
+    <div class="card">
+      <h2>🔗 Agregar por URL / ID</h2>
+      <div class="input-group">
+        <input type="text" id="urlid" placeholder="youtube.com/watch?v=… o ID de 11 chars" onkeydown="if(event.key==='Enter')addByUrl()">
+        <button onclick="addByUrl()">+ Cola</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="col-right">
+
+    <div class="card card-nowplaying">
+      <h2>▶ Reproduciendo ahora</h2>
+      <div id="np" class="np-title">— Nada —</div>
+      <div class="controls">
+        <button class="btn-ctrl btn-play" onclick="cmdPlay()">▶ Play</button>
+        <button class="btn-ctrl" onclick="cmdPause()">⏸ Pausa</button>
+        <button class="btn-ctrl" onclick="cmdSkip()">⏭ Saltar</button>
+        <button class="btn-ctrl btn-stop" onclick="cmdStop()">⏹ Stop</button>
+      </div>
+    </div>
+
+    <div class="card card-score hidden" id="score-panel">
+      <h2>🏆 Puntaje</h2>
+      <div id="score-song" class="score-song"></div>
+      <div class="score-fields">
+        <input type="text" id="singer" placeholder="Nombre del cantante (opcional)">
+        <div class="input-group">
+          <input type="number" id="score" min="0" max="100" placeholder="0 – 100"
+                 onkeydown="if(event.key==='Enter')cmdShowScore()">
+          <button class="btn-show-score" onclick="cmdShowScore()">📺 Mostrar</button>
+        </div>
+      </div>
+      <button class="btn-next" onclick="cmdNext()">Siguiente canción ⏭</button>
+    </div>
+
+    <div class="card card-queue">
+      <h2>📋 Cola <span id="qcount" class="badge">0</span></h2>
+      <div id="qlist" class="qlist"></div>
+    </div>
+
+  </div>
+</div>
+
+<div id="toasts"></div>
+<div class="credit">by Charlie Intriago</div>
+<script src="control.js"></script>
+</body>
+</html>
