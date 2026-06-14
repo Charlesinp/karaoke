@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Karaoke — Control</title>
-<link rel="stylesheet" href="control.css">
+<link rel="stylesheet" href="../styles/control.css">
 </head>
 <body>
 
@@ -28,6 +28,15 @@
 
   <!-- COLUMNA IZQUIERDA -->
   <div class="col-left">
+
+    <div class="card">
+      <h2>🔑 YouTube API Key</h2>
+      <div class="input-group">
+        <input type="password" id="apikey" placeholder="AIzaSy…" autocomplete="off">
+        <button onclick="saveApiKey()">Guardar</button>
+      </div>
+      <p class="hint">Necesaria para buscar en YouTube. Se guarda solo en este navegador (localStorage).</p>
+    </div>
 
     <div class="card">
       <h2>🔍 Buscar en YouTube</h2>
