@@ -1,0 +1,241 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: #000;
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #fff;
+}
+
+/* ── Player ─────────────────────────────────── */
+#player-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  transition: opacity .4s;
+}
+#player-wrap.dim { opacity: 0; pointer-events: none; }
+
+#player-wrap.blurred {
+  filter: blur(25px) brightness(.45) saturate(1.3) hue-rotate(15deg);
+  transition: filter .6s ease;
+}
+
+#player, #player iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+}
+
+/* ── Shared screen ──────────────────────────── */
+.screen {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.screen.hidden { display: none; }
+
+/* ── Waiting ────────────────────────────────── */
+#waiting {
+  background: radial-gradient(ellipse at center,
+    #0d0030 0%, #000 70%);
+}
+
+.w-inner { text-align: center; }
+
+.mic-anim {
+  font-size: 90px;
+  display: block;
+  margin-bottom: 28px;
+  animation: float 2.4s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50%       { transform: translateY(-14px) rotate(5deg); }
+}
+
+.w-inner h1 {
+  font-size: 60px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, #7c4dff, #e040fb, #40c4ff, #7c4dff);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+  margin-bottom: 14px;
+}
+@keyframes shimmer {
+  0%   { background-position: 0%; }
+  100% { background-position: 300%; }
+}
+
+.w-sub {
+  font-size: 22px;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 36px;
+  font-weight: 300;
+}
+
+/* Barras animadas */
+.bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 7px;
+  height: 48px;
+}
+.bars span {
+  width: 7px;
+  background: #7c4dff;
+  border-radius: 4px;
+  animation: bar 1.1s ease-in-out infinite;
+}
+.bars span:nth-child(1) { animation-delay: .0s;  height: 22px; }
+.bars span:nth-child(2) { animation-delay: .15s; height: 38px; background: #e040fb; }
+.bars span:nth-child(3) { animation-delay: .3s;  height: 48px; background: #40c4ff; }
+.bars span:nth-child(4) { animation-delay: .15s; height: 38px; background: #e040fb; }
+.bars span:nth-child(5) { animation-delay: .0s;  height: 22px; }
+
+@keyframes bar {
+  0%, 100% { transform: scaleY(.35); opacity: .5; }
+  50%       { transform: scaleY(1);  opacity: 1; }
+}
+
+/* ── Score Overlay ──────────────────────────── */
+#score-ov {
+  background: radial-gradient(ellipse at 50% 40%,
+    rgba(40, 0, 80, .97) 0%,
+    rgba(0, 0, 0, .97) 100%);
+  animation: fade-in .5s ease;
+  flex-direction: column;
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.s-inner { text-align: center; position: relative; z-index: 2; }
+
+.s-label {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 10px;
+}
+
+.s-num {
+  font-size: clamp(120px, 22vw, 200px);
+  font-weight: 900;
+  line-height: 1;
+  color: #ffd740;
+  text-shadow: 0 0 60px rgba(255,215,64,.45), 0 0 120px rgba(255,215,64,.2);
+  font-variant-numeric: tabular-nums;
+  animation: pop .45s cubic-bezier(.34,1.56,.64,1) both;
+  transition: color .4s, text-shadow .4s;
+}
+@keyframes pop {
+  from { transform: scale(.3); opacity: 0; }
+  to   { transform: scale(1);  opacity: 1; }
+}
+
+.s-num.excellent { color: #00e676; text-shadow: 0 0 60px rgba(0,230,118,.5), 0 0 120px rgba(0,230,118,.2); }
+.s-num.good      { color: #ffd740; text-shadow: 0 0 60px rgba(255,215,64,.5), 0 0 120px rgba(255,215,64,.2); }
+.s-num.ok        { color: #ff9800; text-shadow: 0 0 60px rgba(255,152,0,.4); }
+.s-num.poor      { color: #ff5252; text-shadow: 0 0 60px rgba(255,82,82,.4); }
+
+.s-stars {
+  font-size: 52px;
+  letter-spacing: 6px;
+  color: #ffd740;
+  margin: 14px 0 10px;
+  animation: stars-pop .5s .35s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes stars-pop {
+  from { transform: scale(.4) rotate(-10deg); opacity: 0; }
+  to   { transform: scale(1)  rotate(0deg);   opacity: 1; }
+}
+
+.s-singer {
+  font-size: 34px;
+  font-weight: 800;
+  color: #fff;
+  animation: slide-up .5s .45s both;
+}
+
+.s-title {
+  font-size: 18px;
+  color: rgba(255,255,255,.38);
+  margin-top: 8px;
+  max-width: 640px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: slide-up .5s .55s both;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Botón activar sonido ───────────────────── */
+.unmute-btn {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  background: #7c4dff;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 26px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4);
+  animation: pulse-btn 1.6s ease-in-out infinite;
+}
+.unmute-btn:hover { background: #9569ff; }
+.unmute-btn.hidden { display: none; }
+
+@keyframes pulse-btn {
+  0%, 100% { box-shadow: 0 4px 20px rgba(124,77,255,.4); }
+  50%       { box-shadow: 0 4px 32px rgba(124,77,255,.9); }
+}
+
+/* ── Insignia de autor ───────────────────────── */
+.credit {
+  position: fixed;
+  bottom: 16px;
+  right: 22px;
+  z-index: 30;
+  font-family: 'Brush Script MT', 'Segoe Script', cursive, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #7c4dff, #e040fb, #40c4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: .5;
+  text-shadow: 0 2px 14px rgba(0,0,0,.5);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Confetti/Fireworks canvas ──────────────── */
+#fireworks {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
