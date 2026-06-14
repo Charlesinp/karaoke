@@ -1,10 +1,12 @@
 'use strict';
 
 // ── Estado global ──────────────────────────────────────────────────────────
+const DEFAULT_API_KEY = 'AIzaSyDi8zLuPCilYSnQDjYkBGAugugvDfWfDZQ';
+
 let queue        = [];
 let currentIdx   = -1;
 let playState    = 'idle';   // idle | playing | paused | ended
-let apiKey       = localStorage.getItem('yt_api_key') || '';
+let apiKey       = localStorage.getItem('yt_api_key') || DEFAULT_API_KEY;
 let projWin      = null;
 let searchItems  = [];
 let autoShown    = false;    // ¿ya se mostró el puntaje para la canción actual?
