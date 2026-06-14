@@ -36,7 +36,7 @@ document.getElementById('score').addEventListener('input', () => {
 function openProjection() {
   if (projWin && !projWin.closed) { projWin.focus(); return; }
   projWin = window.open(
-    '../pages/projection.html', 'kp',
+    'projection.html', 'kp',
     'width=1280,height=720,menubar=no,toolbar=no,location=no,status=no'
   );
   setStatus(false);
