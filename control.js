@@ -11,6 +11,7 @@ let autoShown    = false;    // ¿ya se mostró el puntaje para la canción actu
 let autoAdvanceTimer = null; // temporizador para pasar a la siguiente canción
 
 // ── Inicialización ─────────────────────────────────────────────────────────
+document.getElementById('apikey').value = apiKey;
 renderQueue();
 
 if (location.protocol === 'file:') {
